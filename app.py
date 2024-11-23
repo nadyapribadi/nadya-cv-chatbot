@@ -10,11 +10,25 @@ app = Flask(__name__)
 from flask_cors import CORS
 CORS(app)
 
+import os
+
+import spacy
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+
+# Google Application Credentials
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 # Authenticate Google Sheets client using credentials loaded from an environment variable
+credentials_path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
 client = gspread.authorize(creds)
+
 
 # Open the Google Sheet
 sheet = client.open("CV AI")
@@ -53,7 +67,7 @@ cv_data = {
 }
 
 # Set OpenAI API Key
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Updated get_response function
 def get_response(query, cv_data):
@@ -133,3 +147,4 @@ def home():
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
+    
