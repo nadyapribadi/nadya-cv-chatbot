@@ -75,19 +75,19 @@ def get_response(query, cv_data):
 
     # Generate the message for ChatGPT
     system_message = (
-        "You are an assistant helping recruiters understand Nadya CV"
-        "Respond concisely professionally in C2 english"
-        "Avoid uncompleted sentence and answer the same context"
-        "Focus on strategic and tactical decision-making expertise in supply chain and technology roles"
-        "provide actionable insights."
+        "You are an assistant helping recruiters understand Nadya CV. "
+        "Respond concisely and professionally in C2 English. "
+        "Avoid incomplete sentences and keep answers in the same context. "
+        "Focus on strategic and tactical decision-making expertise in supply chain and technology roles. "
+        "Provide actionable insights."
     )
 
     user_message = (
         f"Based on this CV data: {json.dumps(cv_data)}, "
         f"answer the following query: {query}. "
-        f"Avoid uncompleted sentence and answer the same context"
-        f"response on and strategic and tactical skills"
-        f"follow up concise STAR framework"        
+        f"Avoid incomplete sentences and stay in context. "
+        f"Respond on strategic and tactical skills. "
+        f"Follow a concise STAR framework."
     )
 
     # Invoke OpenAI ChatCompletion API
